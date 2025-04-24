@@ -14,13 +14,13 @@ RUN apt update && \
 # install python 3.10
 USER ubuntu
 RUN git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-ENV PYENV_ROOT="$HOME/.pyenv"
-ENV PATH="$PYENV_ROOT/bin:$PATH"
+ENV PATH="/home/ubuntu/.pyenv/bin:$PATH"
 RUN pyenv install 3.10 && pyenv global 3.10
-ENV PATH="$PYENV_ROOT/shims:$PATH"
+ENV PATH="/home/ubuntu/.pyenv/shims:$PATH"
 
 # install 
-RUN git clone https://github.com/bbrfkr/stable-diffusion-webui && git checkout docker
-WORKDIR ~/stable-diffusion-webui
-RUN ./webui-install.sh
-
+WORKDIR /home/ubuntu
+RUN git clone https://github.com/bbrfkr/stable-diffusion-webui && \
+    cd stable-diffusion-webui && \
+    git checkout docker
+WORKDIR /home/ubuntu/stable-diffusion-webui
